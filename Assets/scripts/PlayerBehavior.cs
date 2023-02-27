@@ -7,7 +7,7 @@ public class PlayerBehavior : MonoBehaviour
     float horizontalMove;
     public float speed;
 
-    Rigidbody2D myBody;
+    public Rigidbody2D myBody;
 
     bool grounded = false;
 
