@@ -16,12 +16,4 @@ public class GameManager : MonoBehaviour
     {
         //aaa
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Door"))
-        {
-            SceneManager.LoadScene(1);
-        }
-    }
 }

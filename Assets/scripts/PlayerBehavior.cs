@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -11,11 +12,20 @@ public class PlayerBehavior : MonoBehaviour
 
     bool grounded = false;
 
-    public bool haveCoin = false;
+    public GameObject roomOneText;
+    public GameObject roomTwoText;
+
+    public bool haveCoin1 = false;
     public bool haveCoin2 = false;
     public bool haveCoin3 = false;
 
     public bool haveAllCoins = false;
+
+    public bool haveCoinOne = false;
+    public bool haveCoinTwo = false;
+    public bool haveCoinThree = false;
+
+    public bool haveAllCoins2 = false;
 
     public float castDist = 0.2f;
     public float gravityScale = 5f;
@@ -33,6 +43,8 @@ public class PlayerBehavior : MonoBehaviour
     {
         //myBody = GetComponent<Rigidbody2D>();
         //myAnim = GetComponent<Animator>();
+        roomOneText.SetActive(false);
+        roomTwoText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -53,9 +65,14 @@ public class PlayerBehavior : MonoBehaviour
            // myAnim.SetBool("walking", false);
         }
 
-        if(haveCoin == true && haveCoin2 == true && haveCoin3 == true)
+        if(haveCoin1 == true && haveCoin2 == true && haveCoin3 == true)
         {
             haveAllCoins = true;
+        }
+
+        if (haveCoinOne == true && haveCoinTwo == true && haveCoinThree == true)
+        {
+            haveAllCoins2 = true;
         }
     }
 
@@ -89,13 +106,23 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         myBody.velocity = new Vector3(moveSpeed, myBody.velocity.y, 0);
+
+        if (haveAllCoins == true)
+        {
+            roomOneText.SetActive(true);
+        }
+
+        if (haveAllCoins2 == true)
+        {
+            roomTwoText.SetActive(true);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name == "Coin")
+        if (other.gameObject.name == "Coin1")
         {
-            haveCoin = true;
+            haveCoin1 = true;
             Destroy(other.gameObject);
         }
         if (other.gameObject.name == "Coin2")
@@ -108,5 +135,27 @@ public class PlayerBehavior : MonoBehaviour
             haveCoin3 = true;
             Destroy(other.gameObject);
         }
+
+        if (other.gameObject.name == "Door")
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        if (other.gameObject.name == "CoinOne")
+        {
+            haveCoinOne = true;
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.name == "CoinTwo")
+        {
+            haveCoinTwo = true;
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.name == "CoinThree")
+        {
+            haveCoinThree = true;
+            Destroy(other.gameObject);
+        }
     }
+
 }
